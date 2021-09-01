@@ -1,6 +1,7 @@
 let isAlive = false
 let aliveOnCurrent = false
 let numChips = 50
+let highScore = 0
 
 const CURRENTLY_RUNNING = "Do you want to draw a card?"
 const WON = "You got blackjack!"
@@ -11,6 +12,7 @@ const cardsEl = document.getElementById("cards-el")
 const sumEl = document.getElementById("sum-el")
 const playerEl = document.getElementById("player-el")
 const gameStart = document.getElementById("start-blackjack")
+const scoreEl = document.getElementById("high-score")
 
 function createRandomCard() {
     rand = Math.floor(Math.random() * 13 + 1);
@@ -41,6 +43,7 @@ function renderGame() {
         aliveOnCurrent = false
         numChips -= 10
     }
+    updateHighscore()
     checkChips()
     playerEl.innerHTML = "Your Chips: " + numChips
     messageEl.innerHTML = state
@@ -83,5 +86,12 @@ function checkChips() {
         console.log("LOST!!!")
         gameStart.innerHTML = "RETRY?"
         gameStart.onclick = startGame
+    }
+}
+
+function updateHighscore() {
+    if (numChips >= highScore) {
+        highScore = numChips
+        scoreEl.innerHTML = "HIGHSCORE: " + highScore
     }
 }
